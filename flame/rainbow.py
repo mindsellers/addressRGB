@@ -12,19 +12,18 @@ np = neopixel.NeoPixel(machine.Pin(pin_num), length)
 color=[]
 for i in range(0,length):
     np[i]=[255,0,0]
-#направление изменения цвета    
-r_way=0
-g_way=1
-b_way=0
 #шаг изменения
 step=50
 #задержка
-wait=50
+wait=80
+
 while True:
     
     for i in range(0,length):
         np.write()
+        #Выбираем текущие цвета
         red,green,blue = np[i]
+        #Последовательно перебираем - 255.0.0 - 255.255.0 - 0.255.0 - 0.255.255 -0.0.255 -255.0.255
         if red >= 255 and green <255 and blue == 0:
             red = 255
             green +=step
@@ -66,6 +65,7 @@ while True:
         if blue <=0: blue = 0
 
         j=i+1
+        #Задаем цвет следующему пикселю
         if j == length: j=0
         np[j]=[red,green,blue]
         sleep(wait)
@@ -85,39 +85,3 @@ while True:
 
 
 
-
-br_max=90
-br_min=10
-g_max=50
-g_min=5
-sleep_max=50
-br_step_max=5
-g_step_max=5
-r=255
-g=32
-b=0
-gm=[32,32,32,32,32]
-#for i in range(0,5)
-    
-br = [30,30,30,30,30]
-br_way=[1,1,1,1,1]
-way=[1,1,1,1,1]
-
-while True:
-    for i in range(0,5):
-        color = ((r*br[i])//100,(gm[i]*br[i])//100,b)
-        print(br[i],gm[i])
-        print(color)
-        np[i]=color
-        np.write()
-        br[i]=br[i]+br_way[i]*randint(0,br_step_max)
-        if br[i]<br_min or br[i]>br_max: br_way[i] = -br_way[i]
-        if br[i]<=br_min: br[i] = br_min
-        if br[i] >= br_max: br[i]=br_max
-        gm[i]=gm[i]+way[i]*randint(0,g_step_max)
-        
-        if gm[i]<g_min or gm[i]>g_max: way[i] = -way[i]
-        if gm[i] <=g_min: gm[i] = g_min
-        if gm[i] >= g_max: gm[i] = g_max
-        time.sleep_ms(randint(10,sleep_max))
-    #time.sleep(1)
