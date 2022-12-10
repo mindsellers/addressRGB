@@ -110,10 +110,10 @@ def blue_wave(massive):
 
 def flame(massive):
     massive=[]
-    for i in range(0,length):
+    for i in range(1,length+1):
         br=randint(br_min,br_max)
         g=randint(g_min,g_max)
-        color = ((r*br//100,(g*br)//100,b))
+        color = [(r*br)//100, (g*br)//100, 0]
         massive.append(color)
     return massive
     
@@ -179,7 +179,7 @@ def rainbow(massive):
     
 
 effects_max=12
-active_effect=1
+active_effect=2
 cur_counter=0
 
       
